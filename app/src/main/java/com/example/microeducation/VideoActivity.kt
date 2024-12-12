@@ -3,6 +3,8 @@ package com.example.microeducation
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
+import android.view.Window
+import android.view.WindowManager
 import android.widget.MediaController
 import android.widget.VideoView
 import androidx.activity.enableEdgeToEdge
@@ -15,14 +17,12 @@ class VideoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_video)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.video)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
 
         val videoView = findViewById<VideoView>(R.id.idVideoView)
+
         val videoUrl = "android.resource://" + packageName + "/" + R.raw.very_fat_cat_sits_on_the_bench
         val uri = Uri.parse(videoUrl)
         videoView.setVideoURI(uri)
@@ -35,4 +35,6 @@ class VideoActivity : AppCompatActivity() {
         videoView.setOnPreparedListener { mediaPlayer: MediaPlayer? -> videoView.start() }
 
     }
+
+
 }
