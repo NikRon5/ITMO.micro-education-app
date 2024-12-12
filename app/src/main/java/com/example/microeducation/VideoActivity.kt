@@ -23,7 +23,12 @@ class VideoActivity : AppCompatActivity() {
 
         val videoView = findViewById<VideoView>(R.id.idVideoView)
 
-        val videoUrl = "android.resource://" + packageName + "/" + R.raw.very_fat_cat_sits_on_the_bench
+        // From net
+        val videoUrl = "https://static.videezy.com/system/resources/previews/000/052/598/original/56.mp4"
+
+        // Local
+        //val videoUrl = "android.resource://" + packageName + "/" + R.raw.very_fat_cat_sits_on_the_bench
+
         val uri = Uri.parse(videoUrl)
         videoView.setVideoURI(uri)
 
