@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_background"
+    tools:context=".SettingsFragment">
+
+    <LinearLayout
+        android:layout_gravity="center_horizontal"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/HeaderTextStyle"
+            android:text="@string/account" />
+
+        <TextView
+            android:id="@+id/usernameField"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:gravity="center"
+            android:text="@string/none"
+            android:drawablePadding="12dp"
+            android:textSize="18sp"
+            app:drawableStartCompat="@drawable/ic_person_large"
+            app:drawableTint="@color/white" />
+
+        <TextView
+            android:id="@+id/usermailField"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:text="@string/none"
+            android:drawablePadding="12dp"
+            android:textSize="18sp"
+            app:drawableStartCompat="@drawable/ic_email_large"
+            app:drawableTint="@color/white" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:paddingVertical="12dp"
+            android:paddingEnd="20dp"
+            android:paddingStart="0dp"
+            android:gravity="center"
+            android:background="?attr/selectableItemBackground"
+            android:text="Выйти из аккаунта"
+            android:drawablePadding="12dp"
+            android:textSize="18sp"
+            android:textAllCaps="false"
+            android:id="@+id/logoutButton"
+            app:drawableStartCompat="@drawable/ic_logout_large"
+            app:drawableTint="@color/white" />
+    </LinearLayout>
+
+</FrameLayout>

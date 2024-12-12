@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Micro Education</string>
+    <string name="user_name">Имя пользователя</string>
+    <string name="password">Пароль</string>
+    <string name="registration">Регистрация аккаунта</string>
+    <string name="email">Почта</string>
+    <string name="or">или</string>
+    <string name="itmo_id">ITMO ID</string>
+    <string name="has_account">Уже есть аккаунт?\ </string>
+    <string name="login">Войти</string>
+    <string name="enter">Вход в аккаунт</string>
+    <string name="register">Зарегистрироваться</string>
+    <string name="no_account">Нет аккаунта?\ </string>
+    <string name="courses_header">Доступные курсы</string>
+    <string name="home">Домой</string>
+    <string name="account">Аккаунт</string>
+    <string name="search">Поиск</string>
+    <string name="none">None</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="go_back">Назад</string>
+    <string name="modules">Модули</string>
+    <string name="tests">Тесты</string>
+    <string name="progress">Прогресс</string>
+    <string name="desc">Описание</string>
+</resources>

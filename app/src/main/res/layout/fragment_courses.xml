@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_background"
+    tools:context=".CoursesFragment">
+
+    <LinearLayout
+        android:layout_gravity="center_horizontal"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/HeaderTextStyle"
+            android:text="@string/courses_header"/>
+        <EditText
+            style="@style/SearchStyle"
+            android:layout_marginTop="30dp"
+            android:hint="@string/search"
+            android:importantForAutofill="no"
+            />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="40dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:id="@+id/coursesCards">
+
+                <Button
+                    android:id="@+id/course_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:text="Python"
+                    android:textSize="18sp"
+                    android:background="@drawable/course_card_background"
+                    android:drawableStart="@drawable/ic_python"
+                    android:drawablePadding="-48dp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:textAllCaps="false" />
+                <View
+                    android:layout_width="250dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/white" />
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:text="Python"
+                    android:textSize="18sp"
+                    android:background="@drawable/course_card_background"
+                    android:drawableStart="@drawable/ic_python"
+                    android:drawablePadding="-48dp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:textAllCaps="false" />
+                <View
+                    android:layout_width="250dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/white" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:text="Python"
+                    android:textSize="18sp"
+                    android:background="@drawable/course_card_background"
+                    android:drawableStart="@drawable/ic_python"
+                    android:drawablePadding="-48dp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:textAllCaps="false" />
+                <View
+                    android:layout_width="250dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/white" />
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:text="Python"
+                    android:textSize="18sp"
+                    android:background="@drawable/course_card_background"
+                    android:drawableStart="@drawable/ic_python"
+                    android:drawablePadding="-48dp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:textAllCaps="false" />
+                <View
+                    android:layout_width="250dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/white" />
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:text="Python"
+                    android:textSize="18sp"
+                    android:background="@drawable/course_card_background"
+                    android:drawableStart="@drawable/ic_python"
+                    android:drawablePadding="-48dp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:textAllCaps="false" />
+                <View
+                    android:layout_width="250dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/white" />
+
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+
+</FrameLayout>

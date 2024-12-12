@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CourseModulesFragment">
+
+    <ScrollView
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:minHeight="0dp"
+                android:minWidth="0dp"
+                android:id="@+id/cat"
+                android:text="Очень толстый кот сидит на лавочке"
+                android:textAlignment="textStart"
+                android:textSize="20sp"
+                android:textAllCaps="false"
+                android:paddingVertical="15sp"
+                android:background="?attr/selectableItemBackground"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:minHeight="0dp"
+                android:minWidth="0dp"
+                android:text="Ввод-Вывод данных"
+                android:textAlignment="textStart"
+                android:textSize="20sp"
+                android:textAllCaps="false"
+                android:paddingVertical="15sp"
+                android:background="?attr/selectableItemBackground"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Условный оператор"
+                android:textAlignment="textStart"
+                android:textSize="20sp"
+                android:textAllCaps="false"
+                android:background="?attr/selectableItemBackground"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Типы данных"
+                android:textAlignment="textStart"
+                android:textSize="20sp"
+                android:textAllCaps="false"
+                android:background="?attr/selectableItemBackground"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Строковый тип данных"
+                android:textAlignment="textStart"
+                android:textSize="20sp"
+                android:textAllCaps="false"
+                android:background="?attr/selectableItemBackground"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Списки"
+                android:textAlignment="textStart"
+                android:textSize="20sp"
+                android:textAllCaps="false"
+                android:background="?attr/selectableItemBackground"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Функции"
+                android:textAlignment="textStart"
+                android:textSize="20sp"
+                android:textAllCaps="false"
+                android:background="?attr/selectableItemBackground"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Тип данных bool и NoneType"
+                android:textAlignment="textStart"
+                android:textSize="20sp"
+                android:textAllCaps="false"
+                android:background="?attr/selectableItemBackground"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Вложенные списки"
+                android:textAlignment="textStart"
+                android:textSize="20sp"
+                android:textAllCaps="false"
+                android:background="?attr/selectableItemBackground"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>
