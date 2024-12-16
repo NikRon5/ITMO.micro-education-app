@@ -53,11 +53,10 @@ class RegistrationActivity : AppCompatActivity() {
             else {
                 lifecycleScope.launch {
                     try {
-                        val response = ApiManager.registerUser(this@RegistrationActivity, username, mail, password)
-                        Log.d("Registration", response.toString())
+                        val token  = ApiManager.registerUser(this@RegistrationActivity, username, mail, password)
                         withContext(Dispatchers.Main) {
-                            if (response != null && response) {
-                                // userSessionManager.setJwtToken()
+                            if (token != null) {
+                                userSessionManager.setJwtToken(token)
                                 userSessionManager.setLoggedIn(true)
 
                                 startActivity(
@@ -69,6 +68,7 @@ class RegistrationActivity : AppCompatActivity() {
                                 finish()
                             } else {
                                 Toast.makeText(this@RegistrationActivity, "Ошибка регистрации!", Toast.LENGTH_LONG).show()
+
                             }
                         }
                     } catch (e: Exception) {
