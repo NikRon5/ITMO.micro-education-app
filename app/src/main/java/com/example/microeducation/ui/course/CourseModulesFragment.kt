@@ -2,11 +2,15 @@ package com.example.microeducation.ui.course
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.TEXT_ALIGNMENT_TEXT_START
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.LinearLayout
+import androidx.core.graphics.drawable.toDrawable
+import androidx.fragment.app.Fragment
 import com.example.microeducation.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -30,6 +34,7 @@ class CourseModulesFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
     }
 
     override fun onCreateView(
@@ -38,17 +43,37 @@ class CourseModulesFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_course_modules, container, false)
-        var catButton = view.findViewById<Button>(R.id.cat)
 
-        catButton.setOnClickListener {
-            startActivity(
-                Intent(
-                    activity,
-                    VideoActivity::class.java
-                )
-            )
+        val modulesLayout = view.findViewById<LinearLayout>(R.id.modulesLayout)
+
+        val listOfModules = (activity as CourseActivity).listOfModules
+        for (module in listOfModules){
+            val moduleButton = createModuleButton(module.name)
+            modulesLayout.addView(moduleButton)
+
+            moduleButton.setOnClickListener {
+                val intent = Intent(activity, VideoActivity::class.java)
+                intent.putExtra("url", module.videoLink)
+                startActivity(intent)
+            }
         }
         return view
+    }
+
+    private fun createModuleButton(moduleName: String): Button {
+        val button = Button(activity)
+
+        val typedValue = TypedValue()
+        requireContext().theme.resolveAttribute(androidx.appcompat.R.attr.selectableItemBackground, typedValue, true)
+        button.setBackgroundResource(typedValue.resourceId)
+
+        button.minWidth = 0
+        button.minHeight = 0
+        button.textAlignment = TEXT_ALIGNMENT_TEXT_START
+        button.text = moduleName
+        button.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
+        button.isAllCaps = false
+        return button
     }
 
     companion object {

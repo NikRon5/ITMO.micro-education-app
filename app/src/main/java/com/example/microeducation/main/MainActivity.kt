@@ -20,7 +20,6 @@ class MainActivity : AppCompatActivity() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         userSessionManager = UserSessionManager(applicationContext)
-
         val isLogged = userSessionManager.isLoggedIn()
         if (!isLogged) {
             startActivity(

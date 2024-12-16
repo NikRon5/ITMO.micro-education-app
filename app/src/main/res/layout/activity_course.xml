@@ -19,10 +19,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/courseTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Python"
+        android:text=""
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="@+id/courseBackgroundImage"
         app:layout_constraintEnd_toEndOf="parent"
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:minWidth="0dp"
             android:minHeight="0dp"
-            android:paddingHorizontal="10dp"
+            android:paddingHorizontal="20dp"
             android:paddingVertical="18dp"
             android:id="@+id/progressButton"
             android:foreground="?attr/selectableItemBackground"
@@ -71,7 +71,7 @@
             android:layout_height="wrap_content"
             android:minWidth="0dp"
             android:minHeight="0dp"
-            android:paddingHorizontal="10dp"
+            android:paddingHorizontal="20dp"
             android:paddingVertical="18dp"
             android:id="@+id/modulesButton"
             android:foreground="?attr/selectableItemBackground"
@@ -84,7 +84,7 @@
             android:layout_height="wrap_content"
             android:minWidth="0dp"
             android:minHeight="0dp"
-            android:paddingHorizontal="10dp"
+            android:paddingHorizontal="20dp"
             android:paddingVertical="18dp"
             android:id="@+id/testsButton"
             android:foreground="?attr/selectableItemBackground"
@@ -92,18 +92,6 @@
             android:text="Тесты"
             android:textAllCaps="false"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minWidth="0dp"
-            android:minHeight="0dp"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="18dp"
-            android:id="@+id/descButton"
-            android:foreground="?attr/selectableItemBackground"
-            android:background="@null"
-            android:text="Описание"
-            android:textAllCaps="false"/>
     </LinearLayout>
 
     <FrameLayout

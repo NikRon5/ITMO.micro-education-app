@@ -3,14 +3,24 @@ package com.example.microeducation.ui.course
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.example.microeducation.R
+import com.example.microeducation.model.Module
+import com.example.microeducation.utlis.ApiManager
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.w3c.dom.Text
 
 class CourseActivity : AppCompatActivity() {
+
+    lateinit var listOfModules : List<Module>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -23,10 +33,30 @@ class CourseActivity : AppCompatActivity() {
 
         loadFragment(CourseProgressFragment())
 
+        val courseName = intent.getStringExtra("courseName")
+        val courseTitle = findViewById<TextView>(R.id.courseTitle)
+        courseTitle.text = courseName
+
+        lifecycleScope.launch {
+            try {
+                val modules = ApiManager.getModules(this@CourseActivity, courseName.toString())
+                withContext(Dispatchers.Main) {
+                    if (modules != null) {
+                        listOfModules = modules
+                    } else {
+                        Toast.makeText(this@CourseActivity, "Ошибка информации о модулях", Toast.LENGTH_LONG).show()
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@CourseActivity, "Ошибка информации о модулях", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+
         val modulesButton = findViewById<TextView>(R.id.modulesButton)
         val testsButton = findViewById<TextView>(R.id.testsButton)
         val progressButton = findViewById<TextView>(R.id.progressButton)
-        val descButton = findViewById<TextView>(R.id.descButton)
 
 
         progressButton.setOnClickListener {
@@ -35,8 +65,6 @@ class CourseActivity : AppCompatActivity() {
             progressButton.setBackgroundResource(R.color.more_dark_gray)
             modulesButton.setBackgroundResource(R.color.transparent)
             testsButton.setBackgroundResource(R.color.transparent)
-            descButton.setBackgroundResource(R.color.transparent)
-
         }
 
         modulesButton.setOnClickListener {
@@ -45,7 +73,6 @@ class CourseActivity : AppCompatActivity() {
             modulesButton.setBackgroundResource(R.color.more_dark_gray)
             progressButton.setBackgroundResource(R.color.transparent)
             testsButton.setBackgroundResource(R.color.transparent)
-            descButton.setBackgroundResource(R.color.transparent)
         }
 
         testsButton.setOnClickListener {
@@ -54,17 +81,6 @@ class CourseActivity : AppCompatActivity() {
             testsButton.setBackgroundResource(R.color.more_dark_gray)
             progressButton.setBackgroundResource(R.color.transparent)
             modulesButton.setBackgroundResource(R.color.transparent)
-            descButton.setBackgroundResource(R.color.transparent)
-
-        }
-
-        descButton.setOnClickListener {
-            loadFragment(CourseDescFragment())
-
-            descButton.setBackgroundResource(R.color.more_dark_gray)
-            progressButton.setBackgroundResource(R.color.transparent)
-            modulesButton.setBackgroundResource(R.color.transparent)
-            testsButton.setBackgroundResource(R.color.transparent)
         }
     }
 

@@ -15,7 +15,6 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.microeducation.R
 import com.example.microeducation.utlis.ApiManager
-import com.example.microeducation.network.RetrofitInstance
 import com.example.microeducation.ui.home.HomeActivity
 import com.example.microeducation.utlis.ToastManager
 import kotlinx.coroutines.Dispatchers
@@ -94,33 +93,6 @@ class LoginActivity : AppCompatActivity() {
                 )
             )
             finish()
-        }
-    }
-
-    private suspend fun getModules() {
-        withContext(Dispatchers.IO) {
-            val courseName = "Python"
-
-            try {
-                val response = RetrofitInstance.apiService.getModules(courseName).execute()
-                if (response.isSuccessful && response.body() != null) {
-                    withContext(Dispatchers.Main) {
-                        Log.d("LoginActivity", response.body().toString())
-                        Toast.makeText(this@LoginActivity, "Модули получены", Toast.LENGTH_SHORT).show()
-
-                    }
-                } else {
-                    withContext(Dispatchers.Main) {
-                        Log.d("LoginActivity", response.toString())
-                        Toast.makeText(this@LoginActivity, "Ошибка получения модулей ${response.message()}", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    Log.d("LoginActivity", "Ошибка сети: ${e.message}")
-                    Toast.makeText(this@LoginActivity, "Ошибка сети: ${e.message}", Toast.LENGTH_SHORT).show()
-                }
-            }
         }
     }
 }

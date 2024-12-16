@@ -5,9 +5,13 @@ import UserSessionManager
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.util.TypedValue
+import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.drawable.toDrawable
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
@@ -22,8 +26,6 @@ import kotlinx.coroutines.withContext
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var bottomNav : BottomNavigationView
-    private lateinit var userSessionManager: UserSessionManager
-    private lateinit var userPreferences: UserPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,31 +39,6 @@ class HomeActivity : AppCompatActivity() {
         }
 
         loadFragment(CoursesFragment())
-
-        userSessionManager = UserSessionManager(applicationContext)
-        userPreferences = UserPreferences(applicationContext)
-
-        lifecycleScope.launch {
-            try {
-                val jwtToken = userSessionManager.getJwtToken()
-                if (jwtToken != null) {
-                    val user = ApiManager.getUser(this@HomeActivity, jwtToken)
-                    withContext(Dispatchers.Main) {
-                        if (user != null) {
-                            userPreferences.userId = user.id
-                            userPreferences.name = user.name
-                            userPreferences.mail = user.mail
-                        } else {
-                            Toast.makeText(this@HomeActivity, "Ошибка получения данных о пользователе!", Toast.LENGTH_LONG).show()
-                        }
-                    }
-                }
-            } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(this@HomeActivity, "Ошибка получения данных о пользователе", Toast.LENGTH_LONG).show()
-                }
-            }
-        }
 
         bottomNav = findViewById(R.id.bottomNavigationView)
         bottomNav.setOnItemSelectedListener {
@@ -79,21 +56,8 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
         }
-//        lifecycleScope.launch {
-//            ApiManager.getModulesAsync("Python").collectLatest { modules ->
-//                if (modules != null) {
-//                    // Обрабатываем успешный результат
-//                    for (module in modules) {
-//                        Log.d("TAG", "Модуль: ${module.name}")
-//                    }
-//                } else {
-//                    // Обрабатываем ошибку
-//                    Toast.makeText(this@HomeActivity, "Произошла ошибка при загрузке модулей.", Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//        }
     }
-    private fun loadFragment(fragment: Fragment){
+    private fun loadFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.mainContainer,fragment)
         transaction.commit()

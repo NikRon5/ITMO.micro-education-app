@@ -10,6 +10,9 @@ import android.view.ViewTreeObserver
 import android.widget.FrameLayout
 import android.widget.MediaController
 import android.widget.VideoView
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.OnBackPressedDispatcher
+import androidx.activity.addCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -34,8 +37,11 @@ class VideoActivity : AppCompatActivity() {
             layoutParams = ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT)
         }
 
+        // From intent
+        val videoUrl = intent.getStringExtra("url")
+
         // From net
-        val videoUrl = "https://static.videezy.com/system/resources/previews/000/052/598/original/56.mp4"
+//        val videoUrl = "https://static.videezy.com/system/resources/previews/000/052/598/original/56.mp4"
 
         // Local
         //val videoUrl = "android.resource://" + packageName + "/" + R.raw.very_fat_cat_sits_on_the_bench
@@ -82,5 +88,8 @@ class VideoActivity : AppCompatActivity() {
                 mediaController.setPadding(paddingLeft, 0, 0, 0)
             }
         })
+        onBackPressedDispatcher.addCallback(this) {
+            finish()
+        }
     }
 }

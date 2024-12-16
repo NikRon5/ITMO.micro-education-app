@@ -1,14 +1,24 @@
 package com.example.microeducation.ui.home
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.LinearLayout
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.example.microeducation.R
 import com.example.microeducation.ui.course.CourseActivity
+import com.example.microeducation.utlis.ApiManager
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,6 +44,7 @@ class CoursesFragment : Fragment() {
 
     }
 
+    @SuppressLint("InflateParams")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,17 +52,61 @@ class CoursesFragment : Fragment() {
         // Inflate the layout for this fragment
 
         val view = inflater.inflate(R.layout.fragment_courses, container, false)
+        val coursesCardsLayout = view.findViewById<LinearLayout>(R.id.coursesCards)
 
-        val course_1_Btn = view.findViewById<Button>(R.id.course_1)
-        course_1_Btn.setOnClickListener {
-            startActivity(
-                Intent(
-                    activity,
-                    CourseActivity::class.java
-                )
-            )
+        // Importing courses
+        lifecycleScope.launch {
+            try {
+                val courses = ApiManager.getCourses(requireActivity())
+                withContext(Dispatchers.Main) {
+                    if (courses != null) {
+                        var counter = 0
+                        for (course in courses){
+                            val courseLine = LayoutInflater.from(activity).inflate(R.layout.course_line, null, false)
+                            val courseButton = createCourseCardButton(course, counter)
+
+                            courseButton.setOnClickListener {
+                                val intent = Intent(activity, CourseActivity::class.java)
+                                intent.putExtra("courseName", course)
+                                startActivity(intent)
+                            }
+                            coursesCardsLayout.addView(courseButton)
+                            coursesCardsLayout.addView(courseLine)
+                            counter += 1
+                        }
+                    } else {
+                        Toast.makeText(requireActivity(), "Ошибка получения данных о курсах", Toast.LENGTH_LONG).show()
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(requireActivity(), "Ошибка получения данных о курсах", Toast.LENGTH_LONG).show()
+                }
+            }
         }
         return view
+    }
+
+    private fun createCourseCardButton(courseName: String, tag: Int): Button {
+        val button = Button(activity)
+        val scale: Float = activity?.resources?.displayMetrics?.density ?: 1f;
+
+        val typedValue = TypedValue()
+        requireContext().theme.resolveAttribute(androidx.appcompat.R.attr.selectableItemBackground, typedValue, true)
+        button.setBackgroundResource(typedValue.resourceId)
+
+        button.tag = tag
+        button.height = (64 * scale + 0.5f).toInt()
+        button.width = ViewGroup.LayoutParams.MATCH_PARENT
+        button.text = courseName
+        button.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
+        if (courseName == "Python")
+            button.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_python,0, 0, 0)
+        else
+            button.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_course_default_48,0, 0, 0)
+        button.isAllCaps = false
+        button.compoundDrawablePadding = (-48 * scale + 0.5f).toInt()
+        return button
     }
 
     companion object {

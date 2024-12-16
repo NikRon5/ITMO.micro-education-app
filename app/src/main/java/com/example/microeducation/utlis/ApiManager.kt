@@ -120,7 +120,7 @@ object ApiManager {
 
     suspend fun getModules(activity: Activity, courseName: String): List<Module>? {
         return withContext(Dispatchers.IO) {
-            val url = "$BASE_URL/api/Course/GetCourses"
+            val url = "$BASE_URL/api/Module/GetModules"
 
             val mediaType = "application/json; charset=utf-8".toMediaType()
             val requestBody = "\"$courseName\"".toRequestBody(mediaType)
@@ -146,9 +146,8 @@ object ApiManager {
     }
     suspend fun getCourses(activity: Activity): List<String>? {
         return withContext(Dispatchers.IO) {
-            val url = "$BASE_URL/api/Module/GetModules"
+            val url = "$BASE_URL/api/Course/GetCourses"
 
-//            val mediaType = "application/json; charset=utf-8".toMediaType()
             val empty: RequestBody = EMPTY_REQUEST
             val client = OkHttpClient()
             val request = Request.Builder()

@@ -10,8 +10,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import com.example.microeducation.R
 import com.example.microeducation.ui.auth.LoginActivity
+import com.example.microeducation.utlis.ApiManager
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,7 +35,6 @@ class SettingsFragment : Fragment() {
     private var param2: String? = null
 
     private lateinit var userSessionManager: UserSessionManager
-    private lateinit var userPreferences: UserPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,20 +50,36 @@ class SettingsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_settings, container, false)
+        userSessionManager = UserSessionManager(requireContext())
 
-        userSessionManager = UserSessionManager(requireActivity().applicationContext)
-        userPreferences = UserPreferences(requireActivity().applicationContext)
+        lifecycleScope.launch {
+            try {
+                val jwtToken = userSessionManager.getJwtToken()
+                if (jwtToken != null) {
+                    val user = ApiManager.getUser(requireActivity(), jwtToken)
+                    withContext(Dispatchers.Main) {
+                        if (user != null) {
+                            val usernameField = view.findViewById<TextView>(R.id.usernameField)
+                            val usermailField = view.findViewById<TextView>(R.id.usermailField)
 
-        val usernameField = view.findViewById<TextView>(R.id.usernameField)
-        val usermailField = view.findViewById<TextView>(R.id.usermailField)
-
-        usernameField.text = userPreferences.name.toString()
-        usermailField.text = userPreferences.mail.toString()
+                            usernameField.text = user.name
+                            usermailField.text = user.mail
+                        } else {
+                            Toast.makeText(requireActivity(), "Ошибка получения данных о пользователе!", Toast.LENGTH_LONG).show()
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(requireActivity(), "Ошибка получения данных о пользователе", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
 
         val logoutButton = view.findViewById<Button>(R.id.logoutButton)
         logoutButton.setOnClickListener {
-            userSessionManager.clearAllData()
-            userPreferences.clear()
+            userSessionManager.setLoggedIn(false)
+            userSessionManager.setJwtToken("")
             startActivity(
                 Intent(
                     activity,
