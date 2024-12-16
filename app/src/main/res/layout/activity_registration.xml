@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/main_background"
-    tools:context=".RegistrationActivity">
+    tools:context=".ui.auth.RegistrationActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -34,6 +34,7 @@
             <EditText
                 style="@style/LargeEditTextStyle"
                 android:autofillHints="username"
+                android:id="@+id/usernameRegistration"
                 android:drawableStart="@drawable/ic_person"
                 android:hint="@string/user_name"
                 android:inputType="textPersonName" />
@@ -42,6 +43,7 @@
                 style="@style/LargeEditTextStyle"
                 android:layout_marginTop="20dp"
                 android:autofillHints="email"
+                android:id="@+id/mailRegistration"
                 android:drawableStart="@drawable/ic_email"
                 android:hint="@string/email"
                 android:inputType="textEmailAddress" />
@@ -50,6 +52,7 @@
                 style="@style/LargeEditTextStyle"
                 android:layout_marginTop="20dp"
                 android:autofillHints="password"
+                android:id="@+id/passwordRegistration"
                 android:drawableStart="@drawable/ic_lock"
                 android:hint="@string/password"
                 android:inputType="textPassword" />
@@ -70,7 +73,7 @@
                 style="@style/LargeButtonStyle"
                 android:drawableStart="@drawable/ic_login"
                 android:text="@string/itmo_id"
-                android:onClick="itmoIdLogin"/>
+                android:id="@+id/itmoIdRegistrationButton"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -88,7 +91,7 @@
 
         <Button
             style="@style/SimpleButtonStyle"
-            android:onClick="register"
+            android:id="@+id/registrationButton"
             android:layout_marginBottom="30dp"
             android:text="@string/register" />
 
@@ -103,7 +106,7 @@
 
             <TextView
                 style="@style/LinkTextStyle"
-                android:onClick="goToLogin"
+                android:id="@+id/toLoginButton"
                 android:text="@string/login" />
         </LinearLayout>
 

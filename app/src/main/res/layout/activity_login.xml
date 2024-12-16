@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/main_background"
-    tools:context=".LoginActivity">
+    tools:context=".ui.auth.LoginActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -36,6 +36,7 @@
                 style="@style/LargeEditTextStyle"
                 android:autofillHints="username"
                 android:drawableStart="@drawable/ic_person"
+                android:id="@+id/usernameLogin"
                 android:hint="@string/user_name"
                 android:inputType="textPersonName" />
 
@@ -45,6 +46,7 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="10dp"
                 android:autofillHints="password"
+                android:id="@+id/passwordLogin"
                 android:drawableStart="@drawable/ic_lock"
                 android:hint="@string/password"
                 android:inputType="textPassword" />
@@ -65,7 +67,7 @@
                 style="@style/LargeButtonStyle"
                 android:drawableStart="@drawable/ic_login"
                 android:text="@string/itmo_id"
-                android:onClick="itmoIdLogin"/>
+                android:id="@+id/itmoIdLoginButton"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -84,7 +86,7 @@
         <Button
             style="@style/SimpleButtonStyle"
             android:layout_marginBottom="30dp"
-            android:onClick="login"
+            android:id="@+id/loginButton"
             android:text="@string/login" />
 
         <LinearLayout
@@ -98,7 +100,7 @@
 
             <TextView
                 style="@style/LinkTextStyle"
-                android:onClick="goToRegistration"
+                android:id="@+id/toRegistrationButton"
                 android:text="@string/register" />
         </LinearLayout>
 
