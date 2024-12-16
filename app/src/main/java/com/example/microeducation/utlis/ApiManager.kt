@@ -13,14 +13,16 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import okhttp3.internal.EMPTY_REQUEST
 import java.lang.reflect.Type
 import java.util.Arrays
 
 
 object ApiManager {
     val TAG = "MyApiManager"
-    val BASE_URL = "http://172.28.20.216:5132"
+    val BASE_URL = "http://192.168.0.125:5132"
 
     suspend fun loginUser(activity: Activity, name: String, pass: String): String? {
         return withContext(Dispatchers.IO) {
@@ -40,7 +42,6 @@ object ApiManager {
                 .build()
             try {
                 val response = client.newCall(request).execute()
-                Log.d(TAG, response.body.toString())
                 if (!response.isSuccessful) {
                     Toast.makeText(activity, "Неожиданная ошибка ${response.code}", Toast.LENGTH_LONG).show()
                     return@withContext null
@@ -54,7 +55,7 @@ object ApiManager {
         }
     }
 
-    suspend fun registerUser(activity: Activity, name: String, mail: String, password: String): Boolean? {
+    suspend fun registerUser(activity: Activity, name: String, mail: String, password: String): String? {
         return withContext(Dispatchers.IO) {
             val url = "$BASE_URL/api/Auth/register"
 
@@ -77,7 +78,12 @@ object ApiManager {
                     .build()
             try {
                 val response = client.newCall(request).execute()
-                return@withContext response.isSuccessful
+                if (!response.isSuccessful) {
+                    Toast.makeText(activity, "Неожиданная ошибка ${response.code}", Toast.LENGTH_LONG).show()
+                    return@withContext null
+                }
+                val responseBody = response.body?.string() ?: return@withContext null
+                return@withContext responseBody
             } catch (e: Exception) {
                 Toast.makeText(activity, "Ошибка подключения к серверу ${e.message}", Toast.LENGTH_LONG).show()
                 null
@@ -114,7 +120,7 @@ object ApiManager {
 
     suspend fun getModules(activity: Activity, courseName: String): List<Module>? {
         return withContext(Dispatchers.IO) {
-            val url = "$BASE_URL/api/Module/GetModules"
+            val url = "$BASE_URL/api/Course/GetCourses"
 
             val mediaType = "application/json; charset=utf-8".toMediaType()
             val requestBody = "\"$courseName\"".toRequestBody(mediaType)
@@ -138,8 +144,30 @@ object ApiManager {
             }
         }
     }
+    suspend fun getCourses(activity: Activity): List<String>? {
+        return withContext(Dispatchers.IO) {
+            val url = "$BASE_URL/api/Module/GetModules"
 
-    private fun <T> typeOfList(): Type {
-        return object : TypeToken<List<T>>() {}.type
+//            val mediaType = "application/json; charset=utf-8".toMediaType()
+            val empty: RequestBody = EMPTY_REQUEST
+            val client = OkHttpClient()
+            val request = Request.Builder()
+                .url(url)
+                .post(empty)
+                .build()
+            try {
+                val response = client.newCall(request).execute()
+                if (!response.isSuccessful) {
+                    Toast.makeText(activity, "Неожиданная ошибка ${response.code}", Toast.LENGTH_LONG).show()
+                    return@withContext null
+                }
+                val gson = Gson()
+                val responseBody = gson.fromJson(response.body?.string(), Array<String>::class.java).toList()
+                return@withContext responseBody
+            } catch (e: Exception) {
+                Toast.makeText(activity, "Ошибка подключения к серверу ${e.message}", Toast.LENGTH_LONG).show()
+                null
+            }
+        }
     }
 }
