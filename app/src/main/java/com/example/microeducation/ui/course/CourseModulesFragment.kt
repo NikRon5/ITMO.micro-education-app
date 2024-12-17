@@ -64,7 +64,7 @@ class CourseModulesFragment : Fragment() {
         val button = Button(activity)
 
         val typedValue = TypedValue()
-        requireContext().theme.resolveAttribute(androidx.appcompat.R.attr.selectableItemBackground, typedValue, true)
+        requireContext().theme.resolveAttribute(android.R.attr.selectableItemBackground, typedValue, true)
         button.setBackgroundResource(typedValue.resourceId)
 
         button.minWidth = 0
